@@ -3,46 +3,94 @@
     /* border: solid rgb(117, 113, 113); */
   }
 
-  h1 {
-    width: 300px;
-    margin: 30px auto;
-    font-size: 36pt;
+  #busLogo {
+    float: left;
+    height: 120px;
+    width: 169px;
+    margin-right: 30px;
   }
 
-  div, figure {
-    width: 32%;
+  header {
+    height: 120px;
+    border: solid blueviolet;
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    width: 800px;
+    font-size: 24pt;
+    margin-top: 40px;
+  }
+
+  div {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .results {
+    float: left;
+    width: 20%;
+    height: 300px;
+  }
+
+  .results {
+    border: solid rgb(15, 15, 15);
+    border-width: thin;
+  }
+
+  .results ul {
+    float: left;
+  }
+
+  #products {
+    float: left;
+    width: 80%;
+    height: 200px;
+  }
+
+  #products figure {
+    float: left;
+  }
+
+  #instructions {
+    float: left;
+  }
+
+  figure {
+    border: solid rgb(15, 15, 15);
+    border-width: thin;
+    margin-left: 20px;
+    /* height: 200px; */
+  }
+
+  figure img {
+    height: 170px;
+    width: 175px;
+  }
+
+  figcaption {
+    text-align: center;
+  }
+
+  div figure {
+    width: 20%;
   }
 
   img {
     width: 100%
   }
 
-  /* attempt to place "or" */
-  section:nth-of-type(2n) {
-    position: relative;
-    overflow: hidden;
-  }
-
-  section :first-of-type :first-child {
-    margin-right: 70px;
-  }
-
-  /* working on "or" */
-  section > p {
-    font-size: 20px;
-    margin: 0 30px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  section :nth-of-type(2n) {
-    height: 200px;
-    width: 50%;
-    text-align: center;
-    margin: 30px auto;
-  }
-
   h2 {
     font-size: 24px;
+  }
+
+  #instructions {
+    width: 70%;
+    margin-left: 20px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 10px;
+    width: auto;
   }
