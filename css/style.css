@@ -2,3 +2,47 @@
     box-sizing: border-box;
     /* border: solid rgb(117, 113, 113); */
   }
+
+  h1 {
+    width: 300px;
+    margin: 30px auto;
+    font-size: 36pt;
+  }
+
+  div, figure {
+    width: 32%;
+  }
+
+  img {
+    width: 100%
+  }
+
+  /* attempt to place "or" */
+  section:nth-of-type(2n) {
+    position: relative;
+    overflow: hidden;
+  }
+
+  section :first-of-type :first-child {
+    margin-right: 70px;
+  }
+
+  /* working on "or" */
+  section > p {
+    font-size: 20px;
+    margin: 0 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  section :nth-of-type(2n) {
+    height: 200px;
+    width: 50%;
+    text-align: center;
+    margin: 30px auto;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
