@@ -12,7 +12,7 @@
 
 var productAssortment = [];
 var totalClicks = 0;
-var maxClicks = 4; //TODO: change to 25
+var maxClicks = 25;
 
 //=================randomizer========================
 function chooseRandom(min,max){
@@ -24,7 +24,7 @@ function chooseRandom(min,max){
 function Product (name, imgSource) {
   this.clicked = 0;
   this.shown = 0;
-  //   this.percentage = percentCalc;
+  this.percentage = 0;
   this.imageCaption = name;
   this.imageSrc = imgSource;
   // push new products to array
@@ -79,10 +79,10 @@ function processClickOnAProduct(userClick){
     renderProductImages();
     // console.log('check', totalClicks, maxClicks);
     if (totalClicks === maxClicks) {
+      //https://stackoverflow.com/questions/17012157/remove-clicked-li-onclick showed me how to remove placeholder text
       var placeholder = document.getElementById('tally');
       var text = document.getElementById('placeholder');
       placeholder.removeChild(text);
-
       displayResults();
     }
   }
@@ -137,10 +137,28 @@ function displayResults() {
   }
 }
 
-// calculate percentage
+// attempt to calculate percentage
 
-// for (var k = 0; k < productAssortment.length; k++);{
+// Product.prototype.calculatePercentage = function () {
 //   var calculation = parseFloat(this.clicked/this.shown);
 //   var percentCalc = Math.round(calculation * 100);
-//   productAssortment.percentCalc;
+//   this.percentage = percentCalc;
+// };
+
+// for (var k = 0; k < productAssortment.length; k++){
+//   productAssortment[k].calculatePercentage();
 // }
+
+// function calculatePercentage(clicked, shown) {
+//   var calculation = parseFloat(clicked/shown);
+//   return Math.round(calculation * 100);
+// }
+
+// for (var k = 0; k < productAssortment.length; k++){
+//   var percentCalc = calculatePercentage(productAssortment[k].clicked, productAssortment[k].shown);
+//   productAssortment[k].percentage = percentCalc;
+// }
+
+
+
+
