@@ -61,6 +61,15 @@ var productSection = document.getElementById('products');
 //add listener
 productSection.addEventListener('click', processClickOnAProduct);
 
+// function to replace images with thank you banner after max clicks with help from https://www.geeksforgeeks.org/replace-a-dom-element-with-another-dom-element-in-place/
+
+function replaceImages() {
+  var productSection = document.getElementById('products');
+  var newBanner = document.createElement('h4');
+  newBanner.textContent = 'Good choices - well done!';
+  productSection.parentNode.replaceChild(newBanner, productSection);
+}
+
 function processClickOnAProduct(userClick){
   if(userClick.target.tagName === 'IMG'){
     totalClicks++;
@@ -83,6 +92,10 @@ function processClickOnAProduct(userClick){
       var placeholder = document.getElementById('tally');
       var text = document.getElementById('placeholder');
       placeholder.removeChild(text);
+
+      // ===replace images with thank you from function replaceImages (created above)!
+      replaceImages();
+      // display tally results
       displayResults();
     }
   }
