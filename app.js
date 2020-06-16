@@ -1,16 +1,15 @@
 'use strict';
 
-//  1. build a product constructor
-//  2. function to make a random algorithm choose 3 products to display
-//  3. eventListener to tally clicks and change display
-//  4. track selections made
-//  5. after max clicks (25) render a report (ul) to the user
-//     5a. report needs clicks, shown, percentage
-//  6. remove event listener after max clicks
+// 1. DONE - reconfigure code so that, upon refresh of images, NONE of the prior 3 images is shown in that round
+// 2. DONE - Create a property attached to the constructor function itself that keeps track of all the products that are currently being considered.
+// 3. add chart to visually display data (Chart.js)
+// 4. DONE add percentage (clicked/shown) into array of products
+// 5. update code to remove instructions after max clicks
+
 
 //================global variables===================
 
-var productAssortment = [];
+// var productAssortment = []; replaced/removed when added Constructor property
 var totalClicks = 0;
 var maxClicks = 25;
 
@@ -28,8 +27,11 @@ function Product (name, imgSource) {
   this.imageCaption = name;
   this.imageSrc = imgSource;
   // push new products to array
-  productAssortment.push(this);
+  Product.assortment.push(this); //changed this to reflect 32
 }
+
+Product.assortment = []; //6.16 added this and changed line 29
+
 
 //=====================Products======================
 
@@ -79,9 +81,9 @@ function processClickOnAProduct(userClick){
     }
 
     var targetSrc = userClick.target.getAttribute('src');
-    for(var i = 0; i < productAssortment.length; i++){
-      if (productAssortment[i].imageSrc === targetSrc) {
-        productAssortment[i].clicked++;
+    for(var i = 0; i < Product.assortment.length; i++){
+      if (Product.assortment[i].imageSrc === targetSrc) {
+        Product.assortment[i].clicked++;
       }
     }
 
@@ -99,20 +101,44 @@ function processClickOnAProduct(userClick){
       displayResults();
     }
   }
+  updatePercentages();
 }
 
 //============rendering images===================
 
+var imageDisplaySet = []; //array to hold selection of images
+
 function renderProductImages() {
-  var firstRandom= chooseRandom(0, productAssortment.length);
-  var secondRandom = chooseRandom(0, productAssortment.length);
-  var thirdRandom = chooseRandom(0, productAssortment.length);
-  //check if left is same as middle or right, or if middle and right are same... if so, choose a new one
-  while(firstRandom=== secondRandom || firstRandom=== thirdRandom || secondRandom === thirdRandom){
-    firstRandom= chooseRandom(0, productAssortment.length);
-    secondRandom = chooseRandom(0, productAssortment.length);
+  var firstRandom = chooseRandom(0, Product.assortment.length);
+  var secondRandom = chooseRandom(0, Product.assortment.length);
+  var thirdRandom = chooseRandom(0, Product.assortment.length);
+
+  // check 1st image against anything in imageDisplaySet array
+  while (firstRandom === imageDisplaySet[0] ||
+    firstRandom === imageDisplaySet[1] ||
+    firstRandom === imageDisplaySet[2]){
+    firstRandom = chooseRandom(0, Product.assortment.length);
+  }
+  // check 2nd image against 1st as well as anything in imageDisplaySet array
+  while (secondRandom === firstRandom ||
+    secondRandom === imageDisplaySet[0] ||
+    secondRandom === imageDisplaySet[1] ||
+    secondRandom === imageDisplaySet[2]){
+    secondRandom = chooseRandom(0, Product.assortment.length);
+  }
+  // check 3nd image against 1st and 2nd as well as anything in imageDisplaySet array
+  while (thirdRandom === firstRandom ||
+      thirdRandom === secondRandom ||
+      thirdRandom === imageDisplaySet[0] ||
+      thirdRandom === imageDisplaySet[1] ||
+      thirdRandom === imageDisplaySet[2]){
+    thirdRandom = chooseRandom(0, Product.assortment.length);
   }
 
+  //push these selections to array
+  imageDisplaySet = [firstRandom, secondRandom, thirdRandom];
+
+  //render images and their captions/names
   var firstProduct = document.getElementById('first-image');
   var firstCaption = document.getElementById('first-text');
   var secondProduct = document.getElementById('second-image');
@@ -120,17 +146,17 @@ function renderProductImages() {
   var thirdProduct = document.getElementById('third-image');
   var thirdCaption = document.getElementById('third-text');
 
-  var firstOption = productAssortment[firstRandom];
+  var firstOption = Product.assortment[firstRandom];
   firstProduct.src = firstOption.imageSrc;
   firstCaption.textContent = firstOption.imageCaption;
   firstOption.shown++;
 
-  var secondOption = productAssortment[secondRandom];
+  var secondOption = Product.assortment[secondRandom];
   secondProduct.src = secondOption.imageSrc;
   secondCaption.textContent = secondOption.imageCaption;
   secondOption.shown++;
 
-  var thirdOption = productAssortment[thirdRandom];
+  var thirdOption = Product.assortment[thirdRandom];
   thirdProduct.src = thirdOption.imageSrc;
   thirdCaption.textContent = thirdOption.imageCaption;
   thirdOption.shown++;
@@ -138,40 +164,34 @@ function renderProductImages() {
 }
 
 function displayResults() {
-  for(var i = 0; i < productAssortment.length; i++){
+  for(var i = 0; i < Product.assortment.length; i++){
     //target ul named 'tally'
     var resultsList = document.getElementById('tally');
     //create new li element
     var listItem = document.createElement('li');
     //give it content
-    listItem.textContent = productAssortment[i].imageCaption + '- shown: ' + productAssortment[i].shown + ', clicked: ' + productAssortment[i].clicked;
+    listItem.textContent = Product.assortment[i].imageCaption + '- shown: ' + Product.assortment[i].shown + ', clicked: ' + Product.assortment[i].clicked;
     //append to parent
     resultsList.appendChild(listItem);
   }
 }
 
-// attempt to calculate percentage
+// ===============calculate percentage================
+Product.prototype.calculatePercentage = function () {
+  if (this.shown !== 0){
+    var calculation = parseFloat(this.clicked/this.shown);
+    var percentCalc = Math.round(calculation * 100);
+    this.percentage = percentCalc;
+  }
+};
+// function to update percentages (called in event listener)
+function updatePercentages() {
+  for (var k = 0; k < Product.assortment.length; k++){
+    Product.assortment[k].calculatePercentage();
+  }
+}
 
-// Product.prototype.calculatePercentage = function () {
-//   var calculation = parseFloat(this.clicked/this.shown);
-//   var percentCalc = Math.round(calculation * 100);
-//   this.percentage = percentCalc;
-// };
-
-// for (var k = 0; k < productAssortment.length; k++){
-//   productAssortment[k].calculatePercentage();
-// }
-
-// function calculatePercentage(clicked, shown) {
-//   var calculation = parseFloat(clicked/shown);
-//   return Math.round(calculation * 100);
-// }
-
-// for (var k = 0; k < productAssortment.length; k++){
-//   var percentCalc = calculatePercentage(productAssortment[k].clicked, productAssortment[k].shown);
-//   productAssortment[k].percentage = percentCalc;
-// }
-
-
+//render initial 3 images to page
+renderProductImages();
 
 
