@@ -29,10 +29,15 @@
     margin-bottom: 30px;
   }
 
+  #placeholder {
+    color: blue;
+  }
+  
   .results {
     float: left;
-    width: 15%;
-    height: 300px;
+    width: 25%;
+    height: 420px;
+    padding: 10px;
   }
 
   .results {
@@ -47,10 +52,16 @@
     margin-left: 10px;
   }
 
+  .results li {
+    padding: 1px;
+  }
+
   #products {
     float: left;
-    width: 80%;
+    width: 70%;
     height: 200px;
+    margin-bottom: 20px;
+    /* border: solid blue; */
   }
 
   #products figure {
@@ -64,22 +75,23 @@
   figure {
     border: solid rgb(15, 15, 15);
     border-width: thin;
-    margin-left: 20px;
-    /* height: 200px; */
+    margin-left: 30px;
+    /* width: 200px; */
   }
 
   figure img {
     height: 170px;
     width: 175px;
+    /* border: solid blueviolet; */
   }
 
   figcaption {
     text-align: center;
   }
 
-  div figure {
+  /* div figure {
     width: 20%;
-  }
+  } */
 
   img {
     width: 100%
@@ -90,8 +102,8 @@
   }
 
   #instructions {
-    width: 70%;
-    margin-left: 20px;
+    width: 50%;
+    margin-left: 35px;
   }
 
   footer {
