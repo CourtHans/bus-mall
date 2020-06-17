@@ -13,7 +13,7 @@
 
 // var productAssortment = []; replaced/removed when added Constructor property
 var totalClicks = 0;
-var maxClicks = 5; // TODO: CHANGE BACK TO 25
+var maxClicks = 25;
 
 //=================randomizer========================
 function chooseRandom(min, max) {
