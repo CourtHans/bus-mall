@@ -98,9 +98,10 @@ function renderAChart() {
           'rgba(255, 159, 64, 1)'
         ],
         borderWidth: 1
-      }] //curly and square go with datasets #55
+      }]
     }
-  }); //goes w/ var myChart #51
+  });
+
   //**********CHART 2 (percentage)**********!!
   var secondChart = document.getElementById('myPercentageChart').getContext('2d');
   var myPercentageChart = new Chart(secondChart, {
@@ -216,9 +217,9 @@ function processClickOnAProduct(userClick) {
     // console.log('check', totalClicks, maxClicks);
     if (totalClicks === maxClicks) {
       //https://stackoverflow.com/questions/17012157/remove-clicked-li-onclick showed me how to remove placeholder text
-      var placeholder = document.getElementById('tally');
-      var text = document.getElementById('placeholder');
-      placeholder.removeChild(text);
+      // var placeholder = document.getElementById('tally');
+      // var text = document.getElementById('placeholder');
+      // placeholder.removeChild(text);
 
       // ===replace images with thank you from function replaceImages (created above)!
       replaceImages();

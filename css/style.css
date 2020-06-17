@@ -32,7 +32,7 @@
     color: blue;
   }
 
-  .results {
+  /* .results {
     float: left;
     width: 25%;
     height: 420px;
@@ -53,13 +53,15 @@
 
   .results li {
     padding: 1px;
-  }
+  } */
 
   #products {
     float: left;
-    width: 70%;
-    height: 200px;
+    width: 90%;
+    margin-right: auto; /*added*/
+    height: 320px;
     margin-bottom: 20px;
+    border: solid rgb(194, 92, 194);
   }
 
   #products figure {
@@ -67,8 +69,9 @@
   }
 
   #instructions {
-    float: left;
+    /* float: left; */
     font-size: 16pt;
+    width: 90%;
   }
 
   figure {
@@ -78,24 +81,25 @@
   }
 
   figure img {
-    height: 170px;
-    width: 175px;
+    height: 290px;
+    width: 326px;
   }
 
   figcaption {
     text-align: center;
   }
 
-  img {
+  /* img {
     width: 100%
-  }
+  } */
 
   h2 {
     font-size: 24px;
   }
 
   #instructions {
-    width: 50%;
+    /* width: 50%; */
+    text-align: center;
     margin-left: 35px;
   }
 
@@ -115,4 +119,9 @@
     margin-left:30px;
     font-size: 48pt;
     color: blue;
+  }
+
+  #prettyCharts {
+    width: 90%;
+    border: solid blueviolet;    
   }
