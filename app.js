@@ -1,22 +1,170 @@
 'use strict';
 
-// 1. DONE - reconfigure code so that, upon refresh of images, NONE of the prior 3 images is shown in that round
-// 2. DONE - Create a property attached to the constructor function itself that keeps track of all the products that are currently being considered.
-// 3. add chart to visually display data (Chart.js)
-// 4. DONE add percentage (clicked/shown) into array of products
-// 5. update code to remove instructions after max clicks
+// 1. DONE reconfigure code so that, upon refresh of images, NONE of the prior 3 images is shown in that round
+// 2. DONE create a property attached to the constructor function itself that keeps track of all the products that are currently being considered.
+// 3. DONE add percentage (clicked/shown) into array of products
+// 4. DONE add chart to visually display data (Chart.js)
+// 5. DONE render chart (prob renderTheResultChart(); ) in maxclick "if statement" in Event Listener
+// 6. pull result information INTO chart
+// 7. update code to remove "instructions" section after max clicks (as well as images [already being removed])
 
 
 //================global variables===================
 
 // var productAssortment = []; replaced/removed when added Constructor property
 var totalClicks = 0;
-var maxClicks = 25;
+var maxClicks = 8; // TODO: CHANGE BACK TO 25
 
 //=================randomizer========================
 function chooseRandom(min,max){
   return Math.floor(Math.random() * (max-min) + min);
 }
+
+//<===========<>==============CHART FUNCTION==============<>=================>
+function renderAChart(){
+
+  //create and fill array of label names
+  var chartLabels = [];
+  for (var i = 0; i < Product.assortment.length; i++){
+    chartLabels.push(Product.assortment[i].imageCaption);
+  }
+
+  //create and fill array of 'clicked' number
+  var productClicked = [];
+  // eslint-disable-next-line no-redeclare
+  for (var i = 0; i < Product.assortment.length; i++){
+    productClicked.push(Product.assortment[i].clicked);
+  }
+
+  //create and fill array of 'shown' number
+  var productShown = [];
+  // eslint-disable-next-line no-redeclare
+  for (var i = 0; i < Product.assortment.length; i++){
+    productShown.push(Product.assortment[i].shown);
+  }
+
+  //create and fill array of 'percentage' number
+  var productPercentage = [];
+  // eslint-disable-next-line no-redeclare
+  for (var i = 0; i < Product.assortment.length; i++){
+    productPercentage.push(Product.assortment[i].percentage);
+  }
+
+  //CHART 1 (clicks & shown)
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chartLabels,
+      datasets: [{ //dataset 1 - clicked
+        label: 'Clicked on',
+        data: productClicked,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }, //goes with dataset 1
+      { // dataset 2 - times shown
+        type: 'line',//TODO: change this
+        label: 'Times shown',
+        data: productShown,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }, //goes with dataset 2
+      { // dataset 3 - percentage
+        type: 'line',//TODO: change this?
+        label: 'Percentage',
+        data: productPercentage,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }] //curly and square go with datasets #55
+    },
+  }); //goes w/ var myChart #51
+  //********************************
+  var secondChart = document.getElementById('myPercentageChart').getContext('2d');
+  var myPercentageChart = new Chart(secondChart, {
+    type: 'line',
+    data: {
+      labels: 'Percentages',
+      datasets: [{
+        label: 'Percentage',
+        data: productPercentage,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    // options: {
+    //   scales: {
+    //     yAxes: [{
+    //       ticks: {
+    //         beginAtZero: true
+    //       }
+    //     }]
+    //   }
+    // }
+  });
+
+} //end function
+
+//<===========<>===========END CHART FUNCTION===========<>===========>
 
 //================Product Constructor=================
 
@@ -31,7 +179,6 @@ function Product (name, imgSource) {
 }
 
 Product.assortment = []; //6.16 added this and changed line 29
-
 
 //=====================Products======================
 
@@ -98,13 +245,14 @@ function processClickOnAProduct(userClick){
       // ===replace images with thank you from function replaceImages (created above)!
       replaceImages();
       // display tally results
-      displayResults();
+      displayResults(); //TODO: remove this
+      renderAChart();
     }
   }
   updatePercentages();
 }
 
-//============rendering images===================
+//================RENDERING IMAGES===================
 
 var imageDisplaySet = []; //array to hold selection of images
 
@@ -163,6 +311,7 @@ function renderProductImages() {
 
 }
 
+//=============DISPLAY RESULTS IN LIST====================
 function displayResults() {
   for(var i = 0; i < Product.assortment.length; i++){
     //target ul named 'tally'
@@ -178,6 +327,7 @@ function displayResults() {
 
 // ===============calculate percentage================
 Product.prototype.calculatePercentage = function () {
+  //if statement means will only run if shown isn't 0, to avoid invalid result
   if (this.shown !== 0){
     var calculation = parseFloat(this.clicked/this.shown);
     var percentCalc = Math.round(calculation * 100);
@@ -191,7 +341,7 @@ function updatePercentages() {
   }
 }
 
-//render initial 3 images to page
+//render initial 3 images to page upon page load
 renderProductImages();
 
 
