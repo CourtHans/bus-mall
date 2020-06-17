@@ -1,19 +1,13 @@
 'use strict';
 
-// 1. DONE reconfigure code so that, upon refresh of images, NONE of the prior 3 images is shown in that round
-// 2. DONE create a property attached to the constructor function itself that keeps track of all the products that are currently being considered.
-// 3. DONE add percentage (clicked/shown) into array of products
-// 4. DONE add chart to visually display data (Chart.js)
-// 5. DONE render chart (prob renderTheResultChart(); ) in maxclick "if statement" in Event Listener
-// 6. DONE pull result information INTO chart
-// 7. DONE update code to remove "instructions" section after max clicks (as well as images [already being removed])
-// 8. DONE style chart in CSS (though could play around more to condense a bit, wanted borders, but then they showed upon page load & couldn't figure that out even with 'none' or 'hidden' properties)
+// 1. Convert array of Products (w/ their associated info/data), convert to string, store on LocalStorage
+// 2. Retrieve stored info from local storage and convert back to Object IF there is local storage in existence (i.e not on first page view or with a reset button)
+// 3. try a reset button for user to reset/clear local storage, if desired
 
 //================global variables===================
 
-// var productAssortment = []; replaced/removed when added Constructor property
 var totalClicks = 0;
-var maxClicks = 25;
+var maxClicks = 5;//TODO: change back to 25
 
 //=================randomizer========================
 function chooseRandom(min, max) {
@@ -71,7 +65,7 @@ function renderAChart() {
       {
         type: 'bar',
         hoverBackgroundColor: 'rgba(192, 67, 14, 0.5)',
-        hoverBorderWidth:'1',
+        hoverBorderWidth: '1',
         label: 'Times shown',
         data: productShown,
         backgroundColor: [
@@ -104,7 +98,7 @@ function renderAChart() {
     }
   });
 
-  //**********CHART 2 (percentage)**********!!
+  //**********CHART 2 (percentage)**********
   var secondChart = document.getElementById('myPercentageChart').getContext('2d');
   var myPercentageChart = new Chart(secondChart, {
     type: 'horizontalBar',
@@ -112,7 +106,7 @@ function renderAChart() {
       labels: chartLabels,
       datasets: [{
         hoverBackgroundColor: 'rgba(9, 1, 18, 0.9)',//testing
-        hoverBorderWidth:'2',
+        hoverBorderWidth: '2',
         hoverBorderColor: 'rgba(109, 67, 155, 0.8)',
         label: 'Percentage clicked/shown',
         data: productPercentage,
@@ -200,7 +194,17 @@ new Product('USB tentacle', 'images/usb.gif');
 new Product('Escher watering can', 'images/water-can.jpg');
 new Product('Enclosed Wine Glass', 'images/wine-glass.jpg');
 
-//====================Event Listener=======================
+//retrieve
+var stringifiedProductsFromStorage = localStorage.getItem('storedProductInfo');
+// parse
+var productInfoFromStorage = JSON.parse(stringifiedProductsFromStorage);
+//conditional statement so storage only retrieved IF it contains info
+if (productInfoFromStorage !== null) {
+  Product.assortment = productInfoFromStorage;
+  updateProduct();
+}
+
+//====================Event Listener/Handler=======================
 
 //target
 var productSection = document.getElementById('products');
@@ -222,7 +226,8 @@ function processClickOnAProduct(userClick) {
     totalClicks++;
 
     if (totalClicks === maxClicks) {
-      productSection.removeEventListener('click', processClickOnAProduct);
+      productSection.removeEventListener('click', processClickOnAProduct); //TODO: combo this w/ other if statement below?
+
     }
 
     var targetSrc = userClick.target.getAttribute('src');
@@ -240,6 +245,11 @@ function processClickOnAProduct(userClick) {
     }
   }
   updatePercentages();
+
+  //stringify
+  var arrayOfProductObjects = JSON.stringify(Product.assortment);
+  //save/set it
+  localStorage.setItem('storedProductInfo', arrayOfProductObjects);
 }
 
 //================RENDERING IMAGES===================
@@ -317,7 +327,19 @@ function updatePercentages() {
   }
 }
 
-// ===============Call initial image render================
+// ===============Call initial image render================!!
 renderProductImages();
 
 
+function updateProduct (){
+  if (productInfoFromStorage !== Product.assortment) {
+    for (var i = 0; i < Product.assortment.length; i++) {
+      var caption = productInfoFromStorage[i].imageCaption;
+      var picture = productInfoFromStorage[i].imgSource;
+      var incompleteProduct = new Product(caption, picture);
+      incompleteProduct.clicked = productInfoFromStorage[i].clicked;
+      incompleteProduct.shown = productInfoFromStorage[i].shown;
+      incompleteProduct.percentage = productInfoFromStorage[i].percentage;
+    }
+  }
+}
