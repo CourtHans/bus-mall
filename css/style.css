@@ -6,6 +6,10 @@
     background-color: rgb(218, 218, 233);
   }
 
+  .italic {
+    font-style: oblique;
+  }
+  
   #busLogo {
     float: left;
     height: 120px;
@@ -15,7 +19,7 @@
 
   header {
     height: 120px;
-    border: solid rgb(15, 15, 15);
+    border: solid rgb(25, 25, 50);
     margin-bottom: 30px;
     border-width: medium;
     background-color: rgb(134, 134, 182);
@@ -23,8 +27,9 @@
 
   h1 {
     width: 800px;
-    font-size: 24pt;
+    font-size: 36pt;
     margin-top: 40px;
+    color: rgb(32, 32, 63);
   }
 
   div {
@@ -33,9 +38,9 @@
     margin-bottom: 30px;
   }
 
-  #placeholder {
+  /* #placeholder {
     color: blue;
-  }
+  } */
 
   /* .results {
     float: left;
@@ -64,10 +69,9 @@
     float: left;
     width: 90%;
     margin-left: 30px;
-    margin-right: auto; /*added*/
+    margin-right: auto;
     height: 320px;
     margin-bottom: 20px;
-    border: solid rgb(194, 92, 194);
   }
 
   #products figure {
@@ -75,7 +79,6 @@
   }
 
   #instructions {
-    /* float: left; */
     font-size: 16pt;
     width: 90%;
   }
@@ -83,7 +86,7 @@
   figure {
     border: solid rgb(15, 15, 15);
     border-width: thin;
-    margin-left: 30px;
+    margin-left: 50px;
   }
 
   figure img {
@@ -95,18 +98,13 @@
     text-align: center;
   }
 
-  /* img {
-    width: 100%
-  } */
-
   h2 {
     font-size: 24px;
   }
 
   #instructions {
-    /* width: 50%; */
     text-align: center;
-    margin-left: 40px;
+    margin-left: 60px;
     margin-bottom: 30px;
   }
 
@@ -114,7 +112,7 @@
     text-align: center;
     padding: 10px;
     width: auto;
-    border: solid rgb(15, 15, 15);
+    border: solid rgb(25, 25, 50);
     border-width: medium;
     background-color: rgb(134, 134, 182);
   }
@@ -122,16 +120,21 @@
   h4 {
     float: left;
     width: 90%;
-    height: 200px;
+    height: 70px;
     margin-bottom: 20px;
     margin-left:30px;
-    font-size: 48pt;
+    font-size: 28pt;
     text-align: center;
-    color: blue;
+    color: rgb(32, 32, 63);
   }
 
-  /* #prettyCharts {
-    width: 90%;
-    margin-left: 30px;
-    border: solid blueviolet;    
-  } */
+  #prettyCharts {
+    width: 70vw;
+    margin-left: 160px;
+    overflow: hidden;
+  }
+
+  #myChart {
+    margin-bottom: 20px;
+  }
+

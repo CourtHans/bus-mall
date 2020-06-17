@@ -5,15 +5,15 @@
 // 3. DONE add percentage (clicked/shown) into array of products
 // 4. DONE add chart to visually display data (Chart.js)
 // 5. DONE render chart (prob renderTheResultChart(); ) in maxclick "if statement" in Event Listener
-// 6. pull result information INTO chart
-// 7. update code to remove "instructions" section after max clicks (as well as images [already being removed])
-
+// 6. DONE pull result information INTO chart
+// 7. DONE update code to remove "instructions" section after max clicks (as well as images [already being removed])
+// 8. DONE style chart in CSS (though could play around more to condense a bit, wanted borders, but then they showed upon page load & couldn't figure that out even with 'none' or 'hidden' properties)
 
 //================global variables===================
 
 // var productAssortment = []; replaced/removed when added Constructor property
 var totalClicks = 0;
-var maxClicks = 8; // TODO: CHANGE BACK TO 25
+var maxClicks = 5; // TODO: CHANGE BACK TO 25
 
 //=================randomizer========================
 function chooseRandom(min, max) {
@@ -31,73 +31,75 @@ function renderAChart() {
 
   //create and fill array of 'clicked' number
   var productClicked = [];
-  // eslint-disable-next-line no-redeclare
+
   for (var i = 0; i < Product.assortment.length; i++) {
     productClicked.push(Product.assortment[i].clicked);
   }
 
   //create and fill array of 'shown' number
   var productShown = [];
-  // eslint-disable-next-line no-redeclare
+
   for (var i = 0; i < Product.assortment.length; i++) {
     productShown.push(Product.assortment[i].shown);
   }
 
   //create and fill array of 'percentage' number
   var productPercentage = [];
-  // eslint-disable-next-line no-redeclare
+
   for (var i = 0; i < Product.assortment.length; i++) {
     productPercentage.push(Product.assortment[i].percentage);
   }
 
   //**********CHART 1 (clicks & shown)**********
   var ctx = document.getElementById('myChart').getContext('2d');
+  Chart.defaults.global.defaultFontColor = 'rgb(9, 1, 18)';
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: chartLabels,
-      datasets: [{ //dataset 1 - clicked
+      datasets: [{
         label: 'Clicked on',
         data: productClicked,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(192, 67, 14, 0.1)'
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(192, 67, 14, 1)'
         ],
-        borderWidth: 1
-      }, //goes with dataset 1
-      { // dataset 2 - times shown
-        type: 'line',//TODO: change this
+        borderWidth: 2
+      },
+      {
+        type: 'bar',
+        hoverBackgroundColor: 'rgba(192, 67, 14, 0.5)',
+        hoverBorderWidth:'1',
         label: 'Times shown',
         data: productShown,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)',
+          'rgba(16, 25, 123, 0.4)'
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(16, 25, 123, 0.6)'
         ],
-        borderWidth: 1
+        borderWidth: 3
       }]
     }
   });
@@ -105,45 +107,61 @@ function renderAChart() {
   //**********CHART 2 (percentage)**********!!
   var secondChart = document.getElementById('myPercentageChart').getContext('2d');
   var myPercentageChart = new Chart(secondChart, {
-    type: 'line',
+    type: 'horizontalBar',
     data: {
-      labels: 'Percentages',
+      labels: chartLabels,
       datasets: [{
-        label: 'Percentage',
+        hoverBackgroundColor: 'rgba(9, 1, 18, 0.9)',//testing
+        hoverBorderWidth:'2',
+        hoverBorderColor: 'rgba(109, 67, 155, 0.8)',
+        label: 'Percentage clicked/shown',
         data: productPercentage,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(109, 67, 155, 0.2)',
+          'rgba(38, 9, 71, 0.4)',
+          'rgba(26, 6, 49, 0.6)',
+          'rgba(15, 2, 29, 0.8)',
+          'rgba(109, 67, 155, 0.2)',
+          'rgba(38, 9, 71, 0.4)',
+          'rgba(26, 6, 49, 0.6)',
+          'rgba(15, 2, 29, 0.8)',
+          'rgba(109, 67, 155, 0.2)',
+          'rgba(38, 9, 71, 0.4)',
+          'rgba(26, 6, 49, 0.6)',
+          'rgba(15, 2, 29, 0.8)',
+          'rgba(109, 67, 155, 0.2)',
+          'rgba(38, 9, 71, 0.4)',
+          'rgba(26, 6, 49, 0.6)',
+          'rgba(15, 2, 29, 0.8)',
+          'rgba(109, 67, 155, 0.2)',
+          'rgba(38, 9, 71, 0.4)',
+          'rgba(26, 6, 49, 0.6)',
+          'rgba(15, 2, 29, 0.8)'
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(38, 9, 71, 0.2)'
         ],
         borderWidth: 1
       }]
     },
-    // options: {
-    //   scales: {
-    //     yAxes: [{
-    //       ticks: {
-    //         beginAtZero: true
-    //       }
-    //     }]
-    //   }
-    // }
+    options: {
+      legend: {
+        labels: {
+          fontColor: 'rgba(109, 67, 155, 0.8)',
+        }
+      }
+      // scales: {
+      //   yAxes: [{
+      //     ticks: {
+      //       beginAtZero: true
+      //     }
+      //   }]
+      // }
+    }
   });
 
-} //end function
-
-//<===========<>===========END CHART FUNCTION===========<>===========>
+}
+//<===========<>====END CHART FUNCTION====<>===========>
 
 //================Product Constructor=================
 
@@ -159,7 +177,7 @@ function Product(name, imgSource) {
 
 Product.assortment = []; //6.16 added this and changed line 29
 
-//=====================Products======================
+//=====================Products (20)======================
 
 new Product('R2D2 carry-on bag', 'images/bag.jpg');
 new Product('Banana slicer', 'images/banana.jpg');
@@ -182,7 +200,7 @@ new Product('USB tentacle', 'images/usb.gif');
 new Product('Escher watering can', 'images/water-can.jpg');
 new Product('Enclosed Wine Glass', 'images/wine-glass.jpg');
 
-//================Event Listener=================
+//====================Event Listener=======================
 
 //target
 var productSection = document.getElementById('products');
@@ -195,7 +213,7 @@ function replaceImages() {
   document.getElementById('instructions').style.display = 'none'; //inspired by Claudio's code in code review on 6/16
   var productSection = document.getElementById('products');
   var newBanner = document.createElement('h4');
-  newBanner.textContent = 'Good choices - well done!';
+  newBanner.textContent = 'Good choices! See the results below.';
   productSection.parentNode.replaceChild(newBanner, productSection);
 }
 
@@ -215,17 +233,9 @@ function processClickOnAProduct(userClick) {
     }
 
     renderProductImages();
-    // console.log('check', totalClicks, maxClicks);
     if (totalClicks === maxClicks) {
-      //https://stackoverflow.com/questions/17012157/remove-clicked-li-onclick showed me how to remove placeholder text
-      // var placeholder = document.getElementById('tally');
-      // var text = document.getElementById('placeholder');
-      // placeholder.removeChild(text);
-
-      // ===replace images with thank you from function replaceImages (created above)!
+      // ===replace images with thank you from function replaceImages (created above)and then render chart
       replaceImages();
-      // display tally results
-      // displayResults();
       renderAChart();
     }
   }
@@ -291,20 +301,6 @@ function renderProductImages() {
 
 }
 
-//=============DISPLAY RESULTS IN LIST====================
-function displayResults() {
-  for (var i = 0; i < Product.assortment.length; i++) {
-    //target ul named 'tally'
-    var resultsList = document.getElementById('tally');
-    //create new li element
-    var listItem = document.createElement('li');
-    //give it content
-    listItem.textContent = Product.assortment[i].imageCaption + '- shown: ' + Product.assortment[i].shown + ', clicked: ' + Product.assortment[i].clicked;
-    //append to parent
-    resultsList.appendChild(listItem);
-  }
-}
-
 // ===============calculate percentage================
 Product.prototype.calculatePercentage = function () {
   //if statement means will only run if shown isn't 0, to avoid invalid result
@@ -321,7 +317,7 @@ function updatePercentages() {
   }
 }
 
-//render initial 3 images to page upon page load
+// ===============Call initial image render================
 renderProductImages();
 
 
