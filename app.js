@@ -173,26 +173,6 @@ Product.assortment = []; //6.16 added this and changed line 29
 
 //=====================Products (20)======================
 
-new Product('R2D2 carry-on bag', 'images/bag.jpg');
-new Product('Banana slicer', 'images/banana.jpg');
-new Product('Bathroom iPad stand', 'images/bathroom.jpg');
-new Product('Toeless boots', 'images/boots.jpg');
-new Product('Breakfast machine', 'images/breakfast.jpg');
-new Product('Meatball bubblegum', 'images/bubblegum.jpg');
-new Product('Comfy chair', 'images/chair.jpg');
-new Product('Cthulhu', 'images/cthulhu.jpg');
-new Product('Dog ducklips', 'images/dog-duck.jpg');
-new Product('Dragon meat', 'images/dragon.jpg');
-new Product('Pen flatware', 'images/pen.jpg');
-new Product('Pet sweep shoes', 'images/pet-sweep.jpg');
-new Product('Pizza scissors', 'images/scissors.jpg');
-new Product('Shark cozy', 'images/shark.jpg');
-new Product('Baby sweeper', 'images/sweep.png');
-new Product('Taun taun sleeping bag', 'images/tauntaun.jpg');
-new Product('Unicorn meat', 'images/unicorn.jpg');
-new Product('USB tentacle', 'images/usb.gif');
-new Product('Escher watering can', 'images/water-can.jpg');
-new Product('Enclosed Wine Glass', 'images/wine-glass.jpg');
 
 //retrieve
 var stringifiedProductsFromStorage = localStorage.getItem('storedProductInfo');
@@ -200,8 +180,29 @@ var stringifiedProductsFromStorage = localStorage.getItem('storedProductInfo');
 var productInfoFromStorage = JSON.parse(stringifiedProductsFromStorage);
 //conditional statement so storage only retrieved IF it contains info
 if (productInfoFromStorage !== null) {
-  Product.assortment = productInfoFromStorage;
-  updateProduct();
+  // Product.assortment = productInfoFromStorage; Nich's example, but because i had prototype, had to do different way, hence this if/else statement
+  reconstituteProduct();
+} else {
+  new Product('R2D2 carry-on bag', 'images/bag.jpg');
+  new Product('Banana slicer', 'images/banana.jpg');
+  new Product('Bathroom iPad stand', 'images/bathroom.jpg');
+  new Product('Toeless boots', 'images/boots.jpg');
+  new Product('Breakfast machine', 'images/breakfast.jpg');
+  new Product('Meatball bubblegum', 'images/bubblegum.jpg');
+  new Product('Comfy chair', 'images/chair.jpg');
+  new Product('Cthulhu', 'images/cthulhu.jpg');
+  new Product('Dog ducklips', 'images/dog-duck.jpg');
+  new Product('Dragon meat', 'images/dragon.jpg');
+  new Product('Pen flatware', 'images/pen.jpg');
+  new Product('Pet sweep shoes', 'images/pet-sweep.jpg');
+  new Product('Pizza scissors', 'images/scissors.jpg');
+  new Product('Shark cozy', 'images/shark.jpg');
+  new Product('Baby sweeper', 'images/sweep.png');
+  new Product('Taun taun sleeping bag', 'images/tauntaun.jpg');
+  new Product('Unicorn meat', 'images/unicorn.jpg');
+  new Product('USB tentacle', 'images/usb.gif');
+  new Product('Escher watering can', 'images/water-can.jpg');
+  new Product('Enclosed Wine Glass', 'images/wine-glass.jpg');
 }
 
 //====================Event Listener/Handler=======================
@@ -330,16 +331,13 @@ function updatePercentages() {
 // ===============Call initial image render================!!
 renderProductImages();
 
-
-function updateProduct (){
-  if (productInfoFromStorage !== Product.assortment) {
-    for (var i = 0; i < Product.assortment.length; i++) {
-      var caption = productInfoFromStorage[i].imageCaption;
-      var picture = productInfoFromStorage[i].imgSource;
-      var incompleteProduct = new Product(caption, picture);
-      incompleteProduct.clicked = productInfoFromStorage[i].clicked;
-      incompleteProduct.shown = productInfoFromStorage[i].shown;
-      incompleteProduct.percentage = productInfoFromStorage[i].percentage;
-    }
+function reconstituteProduct (){
+  for (var i = 0; i < productInfoFromStorage.length; i++) {
+    var caption = productInfoFromStorage[i].imageCaption;
+    var picture = productInfoFromStorage[i].imageSrc;
+    var incompleteProduct = new Product(caption, picture);
+    incompleteProduct.clicked = productInfoFromStorage[i].clicked;
+    incompleteProduct.shown = productInfoFromStorage[i].shown;
+    incompleteProduct.percentage = productInfoFromStorage[i].percentage;
   }
 }
