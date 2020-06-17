@@ -192,6 +192,7 @@ productSection.addEventListener('click', processClickOnAProduct);
 // function to replace images with thank you banner after max clicks with help from https://www.geeksforgeeks.org/replace-a-dom-element-with-another-dom-element-in-place/
 
 function replaceImages() {
+  document.getElementById('instructions').style.display = 'none'; //inspired by Claudio's code in code review on 6/16
   var productSection = document.getElementById('products');
   var newBanner = document.createElement('h4');
   newBanner.textContent = 'Good choices - well done!';
@@ -224,7 +225,7 @@ function processClickOnAProduct(userClick) {
       // ===replace images with thank you from function replaceImages (created above)!
       replaceImages();
       // display tally results
-      displayResults(); //TODO: remove this
+      // displayResults();
       renderAChart();
     }
   }
