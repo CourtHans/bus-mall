@@ -17,7 +17,7 @@
 
     <main>
         <div id="mainDiv">
-            <section class="results">
+            <!-- <section class="results">
 
                 <h2>Results</h2>
 
@@ -25,30 +25,36 @@
                     <li id="placeholder">Once you've made 25 selections, your results will display here.</li>
                 </ul>
 
+            </section> -->
+            <section id="instructions">
+                Three potential products are displayed for you. For each new grouping, please select your favorite
+                by clicking on the image.<br>
+                <span class = "italic">Once the screen refreshes, please choose your new favorite!</span>
             </section>
 
             <section id="products">
+
                 <figure>
-                    <img id="first-image" src="images/bag.jpg" alt="R2D2 carryon bag">
-                    <figcaption id="first-text">R2D2 carry-on bag</figcaption>
+                    <img id="first-image">
+                    <figcaption id="first-text"></figcaption>
                 </figure>
 
                 <figure>
-                    <img id="second-image" src="images/banana.jpg" alt="banana slicer">
-                    <figcaption id="second-text">Banana slicer</figcaption>
+                    <img id="second-image">
+                    <figcaption id="second-text"></figcaption>
                 </figure>
 
                 <figure>
-                    <img id="third-image" src="images/bathroom.jpg" alt="bathroom iPad stand">
-                    <figcaption id="third-text">Bathroom iPad stand</figcaption>
+                    <img id="third-image">
+                    <figcaption id="third-text"></figcaption>
                 </figure>
-
             </section>
 
-            <section id="instructions">
-                Three potential products are displayed for you. For each new grouping, please select your favorite
-                by clicking on the image. Once the screen refreshes, please choose your new favorite!
-            </section>
+           <div id="prettyCharts">
+               <canvas id="myChart" width="400" height="400"></canvas>
+               <canvas id="myPercentageChart" width="400" height="400"></canvas>
+            </div>
+
         </div>
 
     </main>
@@ -59,6 +65,7 @@
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="app.js"></script>
 </body>
 
