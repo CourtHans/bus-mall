@@ -16,41 +16,41 @@ var totalClicks = 0;
 var maxClicks = 8; // TODO: CHANGE BACK TO 25
 
 //=================randomizer========================
-function chooseRandom(min,max){
-  return Math.floor(Math.random() * (max-min) + min);
+function chooseRandom(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 //<===========<>==============CHART FUNCTION==============<>=================>
-function renderAChart(){
+function renderAChart() {
 
   //create and fill array of label names
   var chartLabels = [];
-  for (var i = 0; i < Product.assortment.length; i++){
+  for (var i = 0; i < Product.assortment.length; i++) {
     chartLabels.push(Product.assortment[i].imageCaption);
   }
 
   //create and fill array of 'clicked' number
   var productClicked = [];
   // eslint-disable-next-line no-redeclare
-  for (var i = 0; i < Product.assortment.length; i++){
+  for (var i = 0; i < Product.assortment.length; i++) {
     productClicked.push(Product.assortment[i].clicked);
   }
 
   //create and fill array of 'shown' number
   var productShown = [];
   // eslint-disable-next-line no-redeclare
-  for (var i = 0; i < Product.assortment.length; i++){
+  for (var i = 0; i < Product.assortment.length; i++) {
     productShown.push(Product.assortment[i].shown);
   }
 
   //create and fill array of 'percentage' number
   var productPercentage = [];
   // eslint-disable-next-line no-redeclare
-  for (var i = 0; i < Product.assortment.length; i++){
+  for (var i = 0; i < Product.assortment.length; i++) {
     productPercentage.push(Product.assortment[i].percentage);
   }
 
-  //CHART 1 (clicks & shown)
+  //**********CHART 1 (clicks & shown)**********
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -98,32 +98,10 @@ function renderAChart(){
           'rgba(255, 159, 64, 1)'
         ],
         borderWidth: 1
-      }, //goes with dataset 2
-      { // dataset 3 - percentage
-        type: 'line',//TODO: change this?
-        label: 'Percentage',
-        data: productPercentage,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
       }] //curly and square go with datasets #55
-    },
+    }
   }); //goes w/ var myChart #51
-  //********************************
+  //**********CHART 2 (percentage)**********!!
   var secondChart = document.getElementById('myPercentageChart').getContext('2d');
   var myPercentageChart = new Chart(secondChart, {
     type: 'line',
@@ -168,7 +146,7 @@ function renderAChart(){
 
 //================Product Constructor=================
 
-function Product (name, imgSource) {
+function Product(name, imgSource) {
   this.clicked = 0;
   this.shown = 0;
   this.percentage = 0;
@@ -182,26 +160,26 @@ Product.assortment = []; //6.16 added this and changed line 29
 
 //=====================Products======================
 
-new Product('R2D2 carry-on bag','images/bag.jpg');
-new Product('Banana slicer','images/banana.jpg');
-new Product('Bathroom iPad stand','images/bathroom.jpg');
-new Product('Toeless boots','images/boots.jpg');
-new Product('Breakfast machine','images/breakfast.jpg');
-new Product('Meatball bubblegum','images/bubblegum.jpg');
-new Product('Comfy chair','images/chair.jpg');
-new Product('Cthulhu','images/cthulhu.jpg');
-new Product('Dog ducklips','images/dog-duck.jpg');
-new Product('Dragon meat','images/dragon.jpg');
-new Product('Pen flatware','images/pen.jpg');
-new Product('Pet sweep shoes','images/pet-sweep.jpg');
-new Product('Pizza scissors','images/scissors.jpg');
-new Product('Shark cozy','images/shark.jpg');
-new Product('Baby sweeper','images/sweep.png');
-new Product('Taun taun sleeping bag','images/tauntaun.jpg');
-new Product('Unicorn meat','images/unicorn.jpg');
-new Product('USB tentacle','images/usb.gif');
-new Product('Escher watering can','images/water-can.jpg');
-new Product('Enclosed Wine Glass','images/wine-glass.jpg');
+new Product('R2D2 carry-on bag', 'images/bag.jpg');
+new Product('Banana slicer', 'images/banana.jpg');
+new Product('Bathroom iPad stand', 'images/bathroom.jpg');
+new Product('Toeless boots', 'images/boots.jpg');
+new Product('Breakfast machine', 'images/breakfast.jpg');
+new Product('Meatball bubblegum', 'images/bubblegum.jpg');
+new Product('Comfy chair', 'images/chair.jpg');
+new Product('Cthulhu', 'images/cthulhu.jpg');
+new Product('Dog ducklips', 'images/dog-duck.jpg');
+new Product('Dragon meat', 'images/dragon.jpg');
+new Product('Pen flatware', 'images/pen.jpg');
+new Product('Pet sweep shoes', 'images/pet-sweep.jpg');
+new Product('Pizza scissors', 'images/scissors.jpg');
+new Product('Shark cozy', 'images/shark.jpg');
+new Product('Baby sweeper', 'images/sweep.png');
+new Product('Taun taun sleeping bag', 'images/tauntaun.jpg');
+new Product('Unicorn meat', 'images/unicorn.jpg');
+new Product('USB tentacle', 'images/usb.gif');
+new Product('Escher watering can', 'images/water-can.jpg');
+new Product('Enclosed Wine Glass', 'images/wine-glass.jpg');
 
 //================Event Listener=================
 
@@ -219,16 +197,16 @@ function replaceImages() {
   productSection.parentNode.replaceChild(newBanner, productSection);
 }
 
-function processClickOnAProduct(userClick){
-  if(userClick.target.tagName === 'IMG'){
+function processClickOnAProduct(userClick) {
+  if (userClick.target.tagName === 'IMG') {
     totalClicks++;
 
-    if(totalClicks === maxClicks){
+    if (totalClicks === maxClicks) {
       productSection.removeEventListener('click', processClickOnAProduct);
     }
 
     var targetSrc = userClick.target.getAttribute('src');
-    for(var i = 0; i < Product.assortment.length; i++){
+    for (var i = 0; i < Product.assortment.length; i++) {
       if (Product.assortment[i].imageSrc === targetSrc) {
         Product.assortment[i].clicked++;
       }
@@ -264,22 +242,22 @@ function renderProductImages() {
   // check 1st image against anything in imageDisplaySet array
   while (firstRandom === imageDisplaySet[0] ||
     firstRandom === imageDisplaySet[1] ||
-    firstRandom === imageDisplaySet[2]){
+    firstRandom === imageDisplaySet[2]) {
     firstRandom = chooseRandom(0, Product.assortment.length);
   }
   // check 2nd image against 1st as well as anything in imageDisplaySet array
   while (secondRandom === firstRandom ||
     secondRandom === imageDisplaySet[0] ||
     secondRandom === imageDisplaySet[1] ||
-    secondRandom === imageDisplaySet[2]){
+    secondRandom === imageDisplaySet[2]) {
     secondRandom = chooseRandom(0, Product.assortment.length);
   }
   // check 3nd image against 1st and 2nd as well as anything in imageDisplaySet array
   while (thirdRandom === firstRandom ||
-      thirdRandom === secondRandom ||
-      thirdRandom === imageDisplaySet[0] ||
-      thirdRandom === imageDisplaySet[1] ||
-      thirdRandom === imageDisplaySet[2]){
+    thirdRandom === secondRandom ||
+    thirdRandom === imageDisplaySet[0] ||
+    thirdRandom === imageDisplaySet[1] ||
+    thirdRandom === imageDisplaySet[2]) {
     thirdRandom = chooseRandom(0, Product.assortment.length);
   }
 
@@ -313,7 +291,7 @@ function renderProductImages() {
 
 //=============DISPLAY RESULTS IN LIST====================
 function displayResults() {
-  for(var i = 0; i < Product.assortment.length; i++){
+  for (var i = 0; i < Product.assortment.length; i++) {
     //target ul named 'tally'
     var resultsList = document.getElementById('tally');
     //create new li element
@@ -328,15 +306,15 @@ function displayResults() {
 // ===============calculate percentage================
 Product.prototype.calculatePercentage = function () {
   //if statement means will only run if shown isn't 0, to avoid invalid result
-  if (this.shown !== 0){
-    var calculation = parseFloat(this.clicked/this.shown);
+  if (this.shown !== 0) {
+    var calculation = parseFloat(this.clicked / this.shown);
     var percentCalc = Math.round(calculation * 100);
     this.percentage = percentCalc;
   }
 };
 // function to update percentages (called in event listener)
 function updatePercentages() {
-  for (var k = 0; k < Product.assortment.length; k++){
+  for (var k = 0; k < Product.assortment.length; k++) {
     Product.assortment[k].calculatePercentage();
   }
 }
