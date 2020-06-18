@@ -7,7 +7,7 @@
 //================global variables===================
 
 var totalClicks = 0;
-var maxClicks = 5;//TODO: change back to 25
+var maxClicks = 25;
 
 //=================randomizer========================
 function chooseRandom(min, max) {
@@ -222,7 +222,7 @@ function processClickOnAProduct(userClick) {
     renderProductImages();
     if (totalClicks === maxClicks) {
       // ===replace images with thank you from function replaceImages (created above)and then render chart
-      productSection.removeEventListener('click', processClickOnAProduct); 
+      productSection.removeEventListener('click', processClickOnAProduct);
       replaceImages();
       renderAChart();
     }
