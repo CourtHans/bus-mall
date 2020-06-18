@@ -19,28 +19,14 @@ function renderAChart() {
 
   //create and fill array of label names
   var chartLabels = [];
-  for (var i = 0; i < Product.assortment.length; i++) {
-    chartLabels.push(Product.assortment[i].imageCaption);
-  }
-
-  //create and fill array of 'clicked' number
   var productClicked = [];
-
-  for (var i = 0; i < Product.assortment.length; i++) {
-    productClicked.push(Product.assortment[i].clicked);
-  }
-
-  //create and fill array of 'shown' number
   var productShown = [];
-
-  for (var i = 0; i < Product.assortment.length; i++) {
-    productShown.push(Product.assortment[i].shown);
-  }
-
-  //create and fill array of 'percentage' number
   var productPercentage = [];
 
   for (var i = 0; i < Product.assortment.length; i++) {
+    chartLabels.push(Product.assortment[i].imageCaption);
+    productClicked.push(Product.assortment[i].clicked);
+    productShown.push(Product.assortment[i].shown);
     productPercentage.push(Product.assortment[i].percentage);
   }
 
@@ -105,32 +91,32 @@ function renderAChart() {
     data: {
       labels: chartLabels,
       datasets: [{
-        hoverBackgroundColor: 'rgba(9, 1, 18, 0.9)',//testing
+        hoverBackgroundColor: 'rgb(9, 1, 18)',//testing
         hoverBorderWidth: '2',
         hoverBorderColor: 'rgba(109, 67, 155, 0.8)',
         label: 'Percentage clicked/shown',
         data: productPercentage,
         backgroundColor: [
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)'
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)'
         ],
         borderColor: [
           'rgba(38, 9, 71, 0.2)'
@@ -166,10 +152,10 @@ function Product(name, imgSource) {
   this.imageCaption = name;
   this.imageSrc = imgSource;
   // push new products to array
-  Product.assortment.push(this); //changed this to reflect 32
+  Product.assortment.push(this);
 }
 
-Product.assortment = []; //6.16 added this and changed line 29
+Product.assortment = [];
 
 //=====================Products (20)======================
 
@@ -180,7 +166,7 @@ var stringifiedProductsFromStorage = localStorage.getItem('storedProductInfo');
 var productInfoFromStorage = JSON.parse(stringifiedProductsFromStorage);
 //conditional statement so storage only retrieved IF it contains info
 if (productInfoFromStorage !== null) {
-  // Product.assortment = productInfoFromStorage; Nich's example, but because i had prototype, had to do different way, hence this if/else statement
+  // Product.assortment = productInfoFromStorage; <--Nich's example, but because i had prototype, had to do different way, hence this if/else statement
   reconstituteProduct();
 } else {
   new Product('R2D2 carry-on bag', 'images/bag.jpg');
@@ -226,11 +212,6 @@ function processClickOnAProduct(userClick) {
   if (userClick.target.tagName === 'IMG') {
     totalClicks++;
 
-    if (totalClicks === maxClicks) {
-      productSection.removeEventListener('click', processClickOnAProduct); //TODO: combo this w/ other if statement below?
-
-    }
-
     var targetSrc = userClick.target.getAttribute('src');
     for (var i = 0; i < Product.assortment.length; i++) {
       if (Product.assortment[i].imageSrc === targetSrc) {
@@ -241,6 +222,7 @@ function processClickOnAProduct(userClick) {
     renderProductImages();
     if (totalClicks === maxClicks) {
       // ===replace images with thank you from function replaceImages (created above)and then render chart
+      productSection.removeEventListener('click', processClickOnAProduct); 
       replaceImages();
       renderAChart();
     }
