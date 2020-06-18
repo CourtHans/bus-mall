@@ -1,7 +1,7 @@
 # bus-mall
 201 Week 3 bus-mall project
 
-My week 3 project to test out a variety of products with a user group. Each user will be presented a various selection of 3 different products. The user will then click on their preferred object, and the set will refresh (not repeating any of the 3 images shown immediately previous). After the user has clicked 25 times, the clicking will stop and results will be calculated. A chart will show how many times each product was shown, and how many times the user clicked on it, with a second chart displaying percentage of clicked/shown.
+My week 3 project to test out a variety of products with a user group. Each user will be presented a various selection of 3 different products. The user will then click on their preferred object, and the set will refresh (not repeating any of the 3 images shown immediately previous). After the user has clicked 25 times, the clicking will stop and results will be calculated. A chart will show how many times each product was shown, and how many times the user clicked on it, with a second chart displaying percentage of clicked/shown. Local storage is deployed to hold on to previous interactions/data/clicks/shown, etc.
 
 
 ## Author: Courtney Hans

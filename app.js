@@ -1,17 +1,11 @@
 'use strict';
 
-// 1. DONE reconfigure code so that, upon refresh of images, NONE of the prior 3 images is shown in that round
-// 2. DONE create a property attached to the constructor function itself that keeps track of all the products that are currently being considered.
-// 3. DONE add percentage (clicked/shown) into array of products
-// 4. DONE add chart to visually display data (Chart.js)
-// 5. DONE render chart (prob renderTheResultChart(); ) in maxclick "if statement" in Event Listener
-// 6. DONE pull result information INTO chart
-// 7. DONE update code to remove "instructions" section after max clicks (as well as images [already being removed])
-// 8. DONE style chart in CSS (though could play around more to condense a bit, wanted borders, but then they showed upon page load & couldn't figure that out even with 'none' or 'hidden' properties)
+// 1. Convert array of Products (w/ their associated info/data), convert to string, store on LocalStorage
+// 2. Retrieve stored info from local storage and convert back to Object IF there is local storage in existence (i.e not on first page view or with a reset button)
+// 3. try a reset button for user to reset/clear local storage, if desired
 
 //================global variables===================
 
-// var productAssortment = []; replaced/removed when added Constructor property
 var totalClicks = 0;
 var maxClicks = 25;
 
@@ -25,28 +19,14 @@ function renderAChart() {
 
   //create and fill array of label names
   var chartLabels = [];
-  for (var i = 0; i < Product.assortment.length; i++) {
-    chartLabels.push(Product.assortment[i].imageCaption);
-  }
-
-  //create and fill array of 'clicked' number
   var productClicked = [];
-
-  for (var i = 0; i < Product.assortment.length; i++) {
-    productClicked.push(Product.assortment[i].clicked);
-  }
-
-  //create and fill array of 'shown' number
   var productShown = [];
-
-  for (var i = 0; i < Product.assortment.length; i++) {
-    productShown.push(Product.assortment[i].shown);
-  }
-
-  //create and fill array of 'percentage' number
   var productPercentage = [];
 
   for (var i = 0; i < Product.assortment.length; i++) {
+    chartLabels.push(Product.assortment[i].imageCaption);
+    productClicked.push(Product.assortment[i].clicked);
+    productShown.push(Product.assortment[i].shown);
     productPercentage.push(Product.assortment[i].percentage);
   }
 
@@ -71,7 +51,7 @@ function renderAChart() {
       {
         type: 'bar',
         hoverBackgroundColor: 'rgba(192, 67, 14, 0.5)',
-        hoverBorderWidth:'1',
+        hoverBorderWidth: '1',
         label: 'Times shown',
         data: productShown,
         backgroundColor: [
@@ -104,39 +84,39 @@ function renderAChart() {
     }
   });
 
-  //**********CHART 2 (percentage)**********!!
+  //**********CHART 2 (percentage)**********
   var secondChart = document.getElementById('myPercentageChart').getContext('2d');
   var myPercentageChart = new Chart(secondChart, {
     type: 'horizontalBar',
     data: {
       labels: chartLabels,
       datasets: [{
-        hoverBackgroundColor: 'rgba(9, 1, 18, 0.9)',//testing
-        hoverBorderWidth:'2',
+        hoverBackgroundColor: 'rgb(9, 1, 18)',//testing
+        hoverBorderWidth: '2',
         hoverBorderColor: 'rgba(109, 67, 155, 0.8)',
         label: 'Percentage clicked/shown',
         data: productPercentage,
         backgroundColor: [
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)',
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)',
           'rgba(109, 67, 155, 0.2)',
-          'rgba(38, 9, 71, 0.4)',
-          'rgba(26, 6, 49, 0.6)',
-          'rgba(15, 2, 29, 0.8)'
+          'rgba(38, 9, 71, 0.3)',
+          'rgba(26, 6, 49, 0.5)',
+          'rgba(15, 2, 29, 0.7)'
         ],
         borderColor: [
           'rgba(38, 9, 71, 0.2)'
@@ -172,35 +152,46 @@ function Product(name, imgSource) {
   this.imageCaption = name;
   this.imageSrc = imgSource;
   // push new products to array
-  Product.assortment.push(this); //changed this to reflect 32
+  Product.assortment.push(this);
 }
 
-Product.assortment = []; //6.16 added this and changed line 29
+Product.assortment = [];
 
 //=====================Products (20)======================
 
-new Product('R2D2 carry-on bag', 'images/bag.jpg');
-new Product('Banana slicer', 'images/banana.jpg');
-new Product('Bathroom iPad stand', 'images/bathroom.jpg');
-new Product('Toeless boots', 'images/boots.jpg');
-new Product('Breakfast machine', 'images/breakfast.jpg');
-new Product('Meatball bubblegum', 'images/bubblegum.jpg');
-new Product('Comfy chair', 'images/chair.jpg');
-new Product('Cthulhu', 'images/cthulhu.jpg');
-new Product('Dog ducklips', 'images/dog-duck.jpg');
-new Product('Dragon meat', 'images/dragon.jpg');
-new Product('Pen flatware', 'images/pen.jpg');
-new Product('Pet sweep shoes', 'images/pet-sweep.jpg');
-new Product('Pizza scissors', 'images/scissors.jpg');
-new Product('Shark cozy', 'images/shark.jpg');
-new Product('Baby sweeper', 'images/sweep.png');
-new Product('Taun taun sleeping bag', 'images/tauntaun.jpg');
-new Product('Unicorn meat', 'images/unicorn.jpg');
-new Product('USB tentacle', 'images/usb.gif');
-new Product('Escher watering can', 'images/water-can.jpg');
-new Product('Enclosed Wine Glass', 'images/wine-glass.jpg');
 
-//====================Event Listener=======================
+//retrieve
+var stringifiedProductsFromStorage = localStorage.getItem('storedProductInfo');
+// parse
+var productInfoFromStorage = JSON.parse(stringifiedProductsFromStorage);
+//conditional statement so storage only retrieved IF it contains info
+if (productInfoFromStorage !== null) {
+  // Product.assortment = productInfoFromStorage; <--Nich's example, but because i had prototype, had to do different way, hence this if/else statement
+  reconstituteProduct();
+} else {
+  new Product('R2D2 carry-on bag', 'images/bag.jpg');
+  new Product('Banana slicer', 'images/banana.jpg');
+  new Product('Bathroom iPad stand', 'images/bathroom.jpg');
+  new Product('Toeless boots', 'images/boots.jpg');
+  new Product('Breakfast machine', 'images/breakfast.jpg');
+  new Product('Meatball bubblegum', 'images/bubblegum.jpg');
+  new Product('Comfy chair', 'images/chair.jpg');
+  new Product('Cthulhu', 'images/cthulhu.jpg');
+  new Product('Dog ducklips', 'images/dog-duck.jpg');
+  new Product('Dragon meat', 'images/dragon.jpg');
+  new Product('Pen flatware', 'images/pen.jpg');
+  new Product('Pet sweep shoes', 'images/pet-sweep.jpg');
+  new Product('Pizza scissors', 'images/scissors.jpg');
+  new Product('Shark cozy', 'images/shark.jpg');
+  new Product('Baby sweeper', 'images/sweep.png');
+  new Product('Taun taun sleeping bag', 'images/tauntaun.jpg');
+  new Product('Unicorn meat', 'images/unicorn.jpg');
+  new Product('USB tentacle', 'images/usb.gif');
+  new Product('Escher watering can', 'images/water-can.jpg');
+  new Product('Enclosed Wine Glass', 'images/wine-glass.jpg');
+}
+
+//====================Event Listener/Handler=======================
 
 //target
 var productSection = document.getElementById('products');
@@ -221,10 +212,6 @@ function processClickOnAProduct(userClick) {
   if (userClick.target.tagName === 'IMG') {
     totalClicks++;
 
-    if (totalClicks === maxClicks) {
-      productSection.removeEventListener('click', processClickOnAProduct);
-    }
-
     var targetSrc = userClick.target.getAttribute('src');
     for (var i = 0; i < Product.assortment.length; i++) {
       if (Product.assortment[i].imageSrc === targetSrc) {
@@ -235,11 +222,17 @@ function processClickOnAProduct(userClick) {
     renderProductImages();
     if (totalClicks === maxClicks) {
       // ===replace images with thank you from function replaceImages (created above)and then render chart
+      productSection.removeEventListener('click', processClickOnAProduct);
       replaceImages();
       renderAChart();
     }
   }
   updatePercentages();
+
+  //stringify
+  var arrayOfProductObjects = JSON.stringify(Product.assortment);
+  //save/set it
+  localStorage.setItem('storedProductInfo', arrayOfProductObjects);
 }
 
 //================RENDERING IMAGES===================
@@ -317,7 +310,16 @@ function updatePercentages() {
   }
 }
 
-// ===============Call initial image render================
+// ===============Call initial image render================!!
 renderProductImages();
 
-
+function reconstituteProduct (){
+  for (var i = 0; i < productInfoFromStorage.length; i++) {
+    var caption = productInfoFromStorage[i].imageCaption;
+    var picture = productInfoFromStorage[i].imageSrc;
+    var incompleteProduct = new Product(caption, picture);
+    incompleteProduct.clicked = productInfoFromStorage[i].clicked;
+    incompleteProduct.shown = productInfoFromStorage[i].shown;
+    incompleteProduct.percentage = productInfoFromStorage[i].percentage;
+  }
+}
