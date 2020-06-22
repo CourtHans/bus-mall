@@ -38,33 +38,6 @@
     margin-bottom: 30px;
   }
 
-  /* #placeholder {
-    color: blue;
-  } */
-
-  /* .results {
-    float: left;
-    width: 25%;
-    height: 420px;
-    padding: 10px;
-  }
-
-  .results {
-    border: solid rgb(15, 15, 15);
-    border-width: thin;
-    margin-left: 10px;
-  }
-
-  .results ul {
-    float: left;
-    margin-top: 10px;
-    margin-left: 10px;
-  }
-
-  .results li {
-    padding: 1px;
-  } */
-
   #products {
     float: left;
     width: 90%;
@@ -84,12 +57,12 @@
   }
 
   figure {
-    border: solid rgb(15, 15, 15);
-    border-width: thin;
     margin-left: 50px;
   }
 
   figure img {
+    border: solid rgb(15, 15, 15);
+    border-width: thin;
     height: 290px;
     width: 326px;
   }
@@ -137,4 +110,3 @@
   #myChart {
     margin-bottom: 20px;
   }
-
